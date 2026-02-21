@@ -1,9 +1,13 @@
-from flask import Flask,render_template,request,redirect,url_for
+from flask import Flask,render_template,request,redirect,url_for,flash
 from flask_sqlalchemy import SQLAlchemy
+import os
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
 
 
 db = SQLAlchemy(app)
@@ -50,6 +54,7 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
 
+    flash("Uploaded successfully",'success')
     return redirect(url_for('showForm'))
 
 if __name__ == '__main__':
