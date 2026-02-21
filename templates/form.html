@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="/add" method="POST">
+<form action="/add-user" method="POST">
     <label>Name:</label><br>
     <input type="text" name="name" required><br><br>
 
@@ -17,5 +17,23 @@
 
     <button type="submit">Submit</button>
 </form>
+
+<h3>All users</h3>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+    </tr>
+    {% endfor %}
+</table>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
@@ -16,28 +16,41 @@ class User(db.Model):
 with app.app_context():
     db.create_all()
 
-with app.app_context():
-    user = User(name = "Sachin",email = "sachin@email.com")
-    db.session.add(user)
-    db.session.commit()
+# with app.app_context():
+#     user = User(name = "Sachin",email = "sachin@email.com")
+#     db.session.add(user)
+#     db.session.commit()
 
 
 #create route
+# @app.route('/')
+# def hello_world():
+#     return "Hello World"
+
+# @app.route('/test')
+# def test_app():
+#     return '<p>test route</p>'
+
+# @app.route('/temp')
+# def temp_view():
+#     return render_template("hello.html",context={'name':'katrina'})
+
 @app.route('/')
-def hello_world():
-    return "Hello World"
+def showForm():
+    users = User.query.all()
+    return render_template("form.html",users=users)
 
-@app.route('/test')
-def test_app():
-    return '<p>test route</p>'
+@app.route('/add-user',methods=['POST'])
+def add_user():
+    name = request.form.get('name')
+    email = request.form.get('email')
 
-@app.route('/temp')
-def temp_view():
-    return render_template("hello.html",context={'name':'katrina'})
 
-@app.route('/add')
-def add_view():
-    return render_template("form.html")
+    new_user = User(name = name, email = email)
+    db.session.add(new_user)
+    db.session.commit()
+
+    return redirect(url_for('showForm'))
 
 if __name__ == '__main__':
     app.run()
