@@ -12,7 +12,7 @@ def test_app():
 
 @app.route('/temp')
 def temp_view():
-    return render_template("hello.html")
+    return render_template("hello.html",context={'name':'katrina'})
 
 if __name__ == '__main__':
     app.run()
