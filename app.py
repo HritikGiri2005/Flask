@@ -18,8 +18,10 @@ with app.app_context():
 
 with app.app_context():
     user = User(name = "Sachin",email = "sachin@email.com")
-    db.session.add(User)
+    db.session.add(user)
     db.session.commit()
+
+
 #create route
 @app.route('/')
 def hello_world():
@@ -27,11 +29,15 @@ def hello_world():
 
 @app.route('/test')
 def test_app():
-    return '<p> test route </p>'
+    return '<p>test route</p>'
 
 @app.route('/temp')
 def temp_view():
     return render_template("hello.html",context={'name':'katrina'})
+
+@app.route('/add')
+def add_view():
+    return render_template("form.html")
 
 if __name__ == '__main__':
     app.run()
