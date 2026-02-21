@@ -118,3 +118,11 @@ tr:hover {
         width: 100%;
     }
 }
+
+i{
+    color: red;
+}
+
+#unique{
+    background-color: whitesmoke;
+}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
@@ -35,6 +36,7 @@
         <th>ID</th>
         <th>Name</th>
         <th>Email</th>
+        <th>Action</th>
     </tr>
 
     {% for user in users %}
@@ -42,7 +44,13 @@
         <td>{{ user.id }}</td>
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
-    </tr>
+<td>
+    <form action="{{ url_for('delete_user', id=user.id) }}" method="POST">
+        <button type="submit">
+            <i class="fa-solid fa-trash" id = "unique"></i>
+        </button>
+    </form>
+</td>    </tr>
     {% endfor %}
 </table>
 </body>

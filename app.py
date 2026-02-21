@@ -44,6 +44,16 @@ def showForm():
     users = User.query.all()
     return render_template("form.html",users=users)
 
+@app.route('/delete-user/<int:id>', methods=['POST'])
+def delete_user(id):
+    user = User.query.get_or_404(id)
+
+    db.session.delete(user)
+    db.session.commit()
+
+    flash("User deleted successfully!", "success")
+    return redirect(url_for('showForm'))
+
 @app.route('/add-user',methods=['POST'])
 def add_user():
     name = request.form.get('name')
